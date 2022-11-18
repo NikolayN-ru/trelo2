@@ -1,24 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import Boards from './components/Boards/Boards';
+import AddTodo from './components/Boards/AddTodo/AddTodo';
+import Cards from './components/Cards/Cards';
 
-function App() {
+const initialDesk = {
+  name: '',
+  cards: [],
+  active: false,
+}
+
+const App = () => {
+  const [activeDesk, setActiveDesk] = useState<any>(initialDesk);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Boards activeDesk={activeDesk} setActiveDesk={setActiveDesk} />
+      {activeDesk.name && <AddTodo activeDesk={activeDesk} />}
+      {activeDesk.name && <Cards activeDesk={activeDesk} />}
     </div>
   );
 }
